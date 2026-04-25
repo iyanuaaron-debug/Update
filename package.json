@@ -1,7 +1,10 @@
 {
   "name": "single-meal-updater",
   "version": "1.0.0",
-  "main": "single-meal-updater.js",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
   "dependencies": {
     "node-fetch": "^2.6.9",
     "dotenv": "^16.0.0"
