@@ -325,7 +325,7 @@ const express = require('express');
 const app = express();
 app.use(express.json());
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8080;
 
 app.post('/update-meal', async (req, res) => {
   const { foodName, dayMeal, docRef } = req.body;
