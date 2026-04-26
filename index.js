@@ -321,18 +321,21 @@ async function updateSingleMeal(foodName, dayMeal, docRef) {
 // ---------------- EXPORT ----------------
 module.exports = { updateSingleMeal };
 
-// ---------------- OPTIONAL: EXPRESS ROUTE (uncomment to use as a standalone server) ----------------
-// const express = require('express');
-// const app = express();
-// app.use(express.json());
-//
-// app.post('/update-meal', async (req, res) => {
-//   const { foodName, dayMeal, docRef } = req.body;
-//   if (!foodName || !dayMeal || !docRef) {
-//     return res.status(400).json({ error: 'foodName, dayMeal, and docRef are required' });
-//   }
-//   res.json({ message: 'Meal update started', dayMeal, foodName });
-//   updateSingleMeal(foodName, dayMeal, docRef).catch(console.error);
-// });
-//
-// app.listen(5000, () => console.log('🍽️ Single meal updater running on port 5000'));
+const express = require('express');
+const app = express();
+app.use(express.json());
+
+const PORT = process.env.PORT || 5000;
+
+app.post('/update-meal', async (req, res) => {
+  const { foodName, dayMeal, docRef } = req.body;
+  if (!foodName || !dayMeal || !docRef) {
+    return res.status(400).json({ error: 'foodName, dayMeal, and docRef are required' });
+  }
+  res.json({ message: 'Meal update started', dayMeal, foodName });
+  updateSingleMeal(foodName, dayMeal, docRef).catch(console.error);
+});
+
+app.get('/health', (_, res) => res.json({ ok: true, time: new Date().toISOString() }));
+
+app.listen(PORT, '0.0.0.0', () => console.log(`🍽️ Single meal updater running on port ${PORT}`));
